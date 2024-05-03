@@ -8,3 +8,16 @@
 @import 'additional-styles/flatpickr.css';
 
 @import 'tailwindcss/utilities';
+.badge-success{
+    background: #6362e1;
+    padding: 5px;
+    color: #ffffff;
+    border-radius: 5px;
+
+}
+.badge-error{
+    background: #e88d4c;
+    padding: 5px;
+    border-radius: 5px;
+    color: #ffffff;
+}

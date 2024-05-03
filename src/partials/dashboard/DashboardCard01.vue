@@ -1,110 +1,188 @@
 <template>
-  <div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
-    <div class="px-5 pt-5">
-      <header class="flex justify-between items-start mb-2">
-        <!-- Icon -->
-        <img src="../../images/icon-01.svg" width="32" height="32" alt="Icon 01" />
-        <EditMenu align="right" class="relative inline-flex">
-          <li>
-            <a class="font-medium text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-200 flex py-1 px-3" href="#0">Option 1</a>
-          </li>
-          <li>
-            <a class="font-medium text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-200 flex py-1 px-3" href="#0">Option 2</a>
-          </li>
-          <li>
-            <a class="font-medium text-sm text-rose-500 hover:text-rose-600 flex py-1 px-3" href="#0">Remove</a>
-          </li>
-        </EditMenu>
-      </header>
-      <h2 class="text-lg font-semibold text-slate-800 dark:text-slate-100 mb-2">Acme Plus</h2>
-      <div class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase mb-1">Sales</div>
-      <div class="flex items-start">
-        <div class="text-3xl font-bold text-slate-800 dark:text-slate-100 mr-2">$24,780</div>
-        <div class="text-sm font-semibold text-white px-1.5 bg-emerald-500 rounded-full">+49%</div>
-      </div>
-    </div>
-    <!-- Chart built with Chart.js 3 -->
-    <div class="grow max-sm:max-h-[128px] xl:max-h-[128px]">
-      <!-- Change the height attribute to adjust the chart height -->
-      <LineChart :data="chartData" width="389" height="128" />
+  <div>
+    <label>Base Server : </label>
+    <select @change="updateServerURL" v-model="selectedServer">
+      <option value="127.0.0.1">127.0.0.1</option>
+      <option value="10.33.248.54">10.33.248.54</option>
+      <option value="10.33.248.53">10.33.248.53</option>
+    </select>
+    <select @change="updateServerURL" v-model="port">
+      <option value="8001">8001</option>
+      <option value="8090">8090</option>
+      <option value="8010">8010</option>
+    </select>
+  </div>
+  <div
+      class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
+    <div class="px-5 p-5">
+      <p v-if="message"
+         style="background: #ce0f0f; padding: 2px; border-radius: 5px;width: 100%; color: white; margin-bottom: 10px">
+        {{ message }}</p>
+      <table>
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Port</th>
+          <th>Manage</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="container in containers">
+          <td>{{ container.name }}</td>
+          <td>
+            <span :class="container.status === 'running' ? 'badge-success' : 'badge-error' ">{{
+                container.status
+              }}</span>
+          </td>
+          <td>
+            <ul v-for="ports in container.port">
+              <li v-for="port in ports">
+                {{ selectedServer }}:{{ port.HostPort }}
+              </li>
+            </ul>
+          </td>
+          <td>
+            <RouterLink class="btn-sm show-btn" :to="container.id">Show</RouterLink> &nbsp;
+            <button @click="status(container.id,container.status)"
+                    :class="container.status === 'running' ? 'btn-sm btn-red' : 'btn-sm btn-info'">
+              {{ container.status === 'running' ? 'Stop' : 'Start' }}
+            </button>
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
     </div>
   </div>
 </template>
+<style>
 
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  font-size: 14px;
+}
+
+.show-btn {
+  background-color: #5ca640;
+  color: white;
+  border: none;
+  margin: 1px;
+  font-weight: bold;
+}
+
+.btn-info {
+  background-color: #5786ea;
+  color: white;
+  border: none;
+  font-weight: bold;
+  margin: 1px;
+}
+
+.btn-red {
+  background-color: #e16262;
+  color: white;
+  border: none;
+  font-weight: bold;
+  margin: 1px;
+}
+
+</style>
 <script>
-import { ref } from 'vue'
-import LineChart from '../../charts/LineChart01.vue'
-import EditMenu from '../../components/DropdownEditMenu.vue'
-
-// Import utilities
-import { tailwindConfig, hexToRGB } from '../../utils/Utils'
+import axios from 'axios';
+import Swal from "sweetalert2";
 
 export default {
   name: 'DashboardCard01',
-  components: {
-    LineChart,
-    EditMenu,
-  },
-  setup() {
-    const chartData = ref({
-      labels: [
-        '12-01-2020', '01-01-2021', '02-01-2021',
-        '03-01-2021', '04-01-2021', '05-01-2021',
-        '06-01-2021', '07-01-2021', '08-01-2021',
-        '09-01-2021', '10-01-2021', '11-01-2021',
-        '12-01-2021', '01-01-2022', '02-01-2022',
-        '03-01-2022', '04-01-2022', '05-01-2022',
-        '06-01-2022', '07-01-2022', '08-01-2022',
-        '09-01-2022', '10-01-2022', '11-01-2022',
-        '12-01-2022', '01-01-2023',
-      ],
-      datasets: [
-        // Indigo line
-        {
-          data: [
-            732, 610, 610, 504, 504, 504, 349,
-            349, 504, 342, 504, 610, 391, 192,
-            154, 273, 191, 191, 126, 263, 349,
-            252, 423, 622, 470, 532,
-          ],
-          fill: true,
-          backgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.blue[500])}, 0.08)`,
-          borderColor: tailwindConfig().theme.colors.indigo[500],
-          borderWidth: 2,
-          tension: 0,
-          pointRadius: 0,
-          pointHoverRadius: 3,
-          pointBackgroundColor: tailwindConfig().theme.colors.indigo[500],
-          pointHoverBackgroundColor: tailwindConfig().theme.colors.indigo[500],
-          pointBorderWidth: 0,
-          pointHoverBorderWidth: 0,          
-          clip: 20,
-        },
-        // Gray line
-        {
-          data: [
-            532, 532, 532, 404, 404, 314, 314,
-            314, 314, 314, 234, 314, 234, 234,
-            314, 314, 314, 388, 314, 202, 202,
-            202, 202, 314, 720, 642,
-          ],
-          borderColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
-          borderWidth: 2,
-          tension: 0,
-          pointRadius: 0,
-          pointHoverRadius: 3,
-          pointBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
-          pointHoverBackgroundColor: `rgba(${hexToRGB(tailwindConfig().theme.colors.slate[500])}, 0.25)`,
-          pointBorderWidth: 0,
-          pointHoverBorderWidth: 0,               
-          clip: 20,
-        },
-      ],
-    })
-
+  data() {
     return {
-      chartData,
-    } 
+      message: false,
+      containers: [],
+      selectedServer: '127.0.0.1',
+      port: 8001,
+      serverURL: 'http://127.0.0.1:8001/'
+    };
+  },
+  methods: {
+
+    list() {
+      this.loadingEvent()
+      axios.get(this.getUrl() + "list")
+          .then((response) => {
+            this.containers = response.data.containers
+            this.message = false
+            Swal.close()
+          })
+          .catch((error) => {
+            this.containers = []
+            Swal.fire({
+              title: 'Error!',
+              text: error.message,
+              icon: 'error',
+              confirmButtonText: 'Ok'
+            })
+          });
+    },
+    loadingEvent() {
+      return Swal.fire({
+        icon: "loading",
+        title: "Wait...",
+        text: "Get Server Detail",
+      });
+    },
+    getUrl() {
+      if (localStorage.getItem('serverURL')) {
+        return localStorage.getItem('serverURL');
+      }
+      return this.serverURL
+    },
+    status(id, status) {
+      var type = status === "running" ? 'kill' : "start"
+      this.message = "Processing ...";
+      axios.get(this.getUrl() + type + id)
+          .then((response) => {
+            this.message = false;
+            alert(response.data.message);
+          })
+          .catch((error) => {
+            this.containers = []
+            Swal.fire({
+              title: 'Error!',
+              text: error.message,
+              icon: 'error',
+              confirmButtonText: 'Ok'
+            })
+          });
+      this.list()
+    },
+    updateServerURL() {
+      this.serverURL = `http://${this.selectedServer}:${this.port}/`;
+      localStorage.setItem('serverURL', this.serverURL);
+      localStorage.setItem('selectedServer', this.selectedServer);
+      this.list()
+    },
+  },
+  created() {
+    localStorage.setItem('serverURL', this.serverURL);
+    localStorage.setItem('selectedServer', this.selectedServer);
+    this.list()
   }
 }
+
 </script>

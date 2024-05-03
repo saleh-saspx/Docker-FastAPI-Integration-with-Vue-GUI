@@ -1,75 +1,52 @@
-# Free Tailwind & Vue.js admin dashboard template
 
-![Mosaic TailwindCSS template preview](https://github.com/cruip/vuejs-admin-dashboard-template/assets/2683512/2fdc15d1-316b-4c51-b357-84b32e79de60)
+# Docker FastAPI Integration with Vue GUI
 
-**Mosaic Lite Vue** is a responsive dashboard template built on top of TailwindCSS and fully coded in Vue.js. This template is a great starting point for anyone who wants to create a user interface for SaaS products, administrator dashboards, modern web apps, and more.
-Use it for whatever you want, and be sure to reach us out on [Twitter](https://twitter.com/Cruip_com) if you build anything cool/useful with it.
+This project provides a graphical user interface (GUI) using Vue for administering Docker container management package. It enables managing Docker containers via a RESTful API.
 
-Created and maintained with ❤️ by [Cruip.com](https://cruip.com/).
+[Docker-FastAPI-Integration](https://github.com/saleh-saspx/Docker-FastAPI-Integration).
+## Installation and Setup
 
-## Live demo
+1. To install the necessary packages, use the following command:
 
-Check the live demo here 👉️ [https://mosaic-vue.cruip.com/](https://mosaic-vue.cruip.com/)
-
-## Mosaic Pro
-
-[![Mosaic Pro](https://user-images.githubusercontent.com/2683512/151177961-2ff5b838-3745-48dc-80c8-80b043971483.png)](https://cruip.com/mosaic/)
-
-## Design files
-
-If you need the design files, you can download them from Figma's Community 👉 https://bit.ly/3sigqHe
-
-## Table of contents
-
-* [Usage](#usage)
-  * [Project setup](#project-setup)
-    * [Compiles and hot-reloads for development](#compiles-and-hot-reloads-for-development)
-    * [Compiles and minifies for production](#compiles-and-minifies-for-production)
-    * [Customize configuration](#customize-configuration)
-* [Credits](#credits)
-* [Terms and License](#terms-and-license)
-* [About Us](#about-us)
-* [Stay in the loop](#stay-in-the-loop)
-
-## Usage
-
-This project was built with [Vue 3](https://v3.vuejs.org/) and [Vite](https://vitejs.dev/).
-
-### Project setup
-```
+```bash
 npm install
 ```
 
-#### Compiles and hot-reloads for development
-```
+2. To run the development environment, use the following command:
+
+```bash
 npm run dev
 ```
 
-#### Compiles and minifies for production
-```
+3. To build and package the project for production environment, use the following command:
+
+```bash
 npm run build
 ```
 
-#### Customize configuration
-See [Configuration Reference](https://vitejs.dev/guide/).
+## Usage
 
-[![React version of Mosaic](https://user-images.githubusercontent.com/2683512/142938809-1ba3f7e3-3f43-47cb-bbb5-1618057cab6d.png)](https://github.com/cruip/tailwind-dashboard-template)
+- To access the API interface and manage Docker containers, run the project and visit the following address:
 
-## Credits
+```
+http://localhost:8000
+```
 
-- [Nucleo](https://nucleoapp.com/)
+- For development and testing the project, use the following command:
 
-## Terms and License
+```bash
+npm run dev
+```
 
-- Released under the [GPL](https://www.gnu.org/licenses/gpl-3.0.html).
-- Copyright 2021 [Cruip](https://cruip.com/).
-- Use it for personal and commercial projects, but please don’t republish, redistribute, or resell the template.
-- Attribution is not required, although it is really appreciated.
+## Contribution
 
-## About Us
+If you would like to contribute to improving this project, please feel free to submit a pull request or open an issue. You can also contribute by translating documentation and improving the code.
 
-We're an Italian developer/designer duo creating high-quality design/code resources for developers, makers, and startups.
+## Issues
 
-## Stay in the loop
+- If you encounter any problems or have any ideas for improving the project, please create a new issue or open an existing one.
 
-If you would like to know when we release new resources, you can follow us on [Twitter](https://twitter.com/Cruip_com), or you can subscribe to our monthly [newsletter](https://cruip.com/#subscribe).
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+

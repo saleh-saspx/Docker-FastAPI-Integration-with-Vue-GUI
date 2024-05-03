@@ -1,6 +1,6 @@
 {
-  "name": "mosaic-vue",
-  "version": "0.0.0",
+  "name": "cap-docker-gui",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,11 +10,14 @@
   "dependencies": {
     "@tailwindcss/forms": "^0.5.7",
     "@vueuse/core": "^10.7.0",
+    "axios": "^1.6.8",
     "chart.js": "^4.4.1",
     "chartjs-adapter-moment": "^1.0.1",
     "flatpickr": "^4.6.13",
     "moment": "^2.29.4",
+    "sweetalert2": "^11.10.8",
     "vue": "^3.2.20",
+    "vue-data-tables": "^3.4.5",
     "vue-flatpickr-component": "^11.0.3",
     "vue-router": "^4.2.5"
   },
@@ -22,6 +25,7 @@
     "@vitejs/plugin-vue": "^4.5.2",
     "@vue/compiler-sfc": "^3.2.20",
     "autoprefixer": "^10.4.16",
+    "electron": "^30.0.2",
     "postcss": "^8.4.32",
     "tailwindcss": "^3.3.6",
     "vite": "^5.0.6"

@@ -3,8 +3,6 @@
     <label>Base Server : </label>
     <select @change="updateServerURL" v-model="selectedServer">
       <option value="127.0.0.1">127.0.0.1</option>
-      <option value="10.33.248.54">10.33.248.54</option>
-      <option value="10.33.248.53">10.33.248.53</option>
     </select>
     <select @change="updateServerURL" v-model="port">
       <option value="8001">8001</option>

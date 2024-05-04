@@ -103,10 +103,13 @@
               class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700 mt-4">
             <div class="px-5 p-5">
               <strong>Last #10 Logs</strong>
+              <button style="margin-left:20px;" @click="this.logs()" class="btn btn-info">Load More Logs</button>
               <hr/>
               <br/>
               <code>
-                <ul style="margin-top: 10px" v-for="log in container.logs">{{ log }}</ul>
+                <ul class="terminal" style="margin-top: 10px">
+                  <li v-for="log in container.logs">{{ log }}</li>
+                </ul>
               </code>
             </div>
           </div>
@@ -119,7 +122,21 @@
 
   </div>
 </template>
+<style>
+.terminal {
+  width: 100%;
+  margin: 50px auto;
+  background-color: #000;
+  overflow: auto;
+}
 
+.terminal li {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  color: rgb(79, 176, 40);
+  padding: 10px;
+}
+</style>
 <script>
 import {ref} from 'vue'
 import Sidebar from '../partials/Sidebar.vue'
@@ -140,6 +157,7 @@ export default {
         status: '',
         name: 'Teews Service Management',
         port: [],
+        logs: []
       },
       selectedServer: ''
     };
@@ -209,6 +227,21 @@ export default {
               preConfirm: () => {
                 this.show()
               }
+            })
+          });
+    },
+    logs() {
+      axios.get(this.getUrl() + "logs/" + this.$route.params.container + "/10")
+          .then((response) => {
+            this.message = false;
+            this.container.logs = response.data.data
+          })
+          .catch((error) => {
+            Swal.fire({
+              title: 'Error!',
+              text: error.message,
+              icon: 'error',
+              confirmButtonText: 'Ok'
             })
           });
     }

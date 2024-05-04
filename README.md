@@ -8,9 +8,10 @@ This project provides a graphical user interface (GUI) using Vue for administeri
 Containers List
 <img width="1115" alt="Screenshot 1403-02-15 at 3 39 11 at night" src="https://github.com/saleh-saspx/Docker-FastAPI-Integration/assets/25975610/194f75ea-694f-4886-afa7-b38001adf25a">
 
-Container OverView
+Container Overview
 
-<img width="1410" alt="Screenshot 1403-02-16 at 2 06 12 at night" src="https://github.com/saleh-saspx/Docker-FastAPI-Integration-with-Vue-GUI/assets/25975610/2785bc81-b31a-4d89-a538-fe71995b334e">
+<img width="1155" alt="Screenshot 1403-02-16 at 3 18 38 at night" src="https://github.com/saleh-saspx/Docker-FastAPI-Integration-with-Vue-GUI/assets/25975610/d7136e92-7625-47dc-9e7e-cf74c36f84c3">
+
 
 ## Installation and Setup
 

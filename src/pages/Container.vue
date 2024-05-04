@@ -66,22 +66,22 @@
                   }}</span></h1>
               <p class="dark:text-indigo-200">{{ container.id }}</p>
             </div>
-
           </div>
 
           <div
               class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700">
             <div class="px-5 p-5">
-              <strong>Manage</strong>
+              <strong>Overview</strong> <button style="margin-left: 15px; margin-bottom: 10px" @click="status()" :class="container.status === 'running' ? 'badge-error' : 'badge-success'">
+              {{ container.status === 'running' ? 'Stop Service' : 'Start Service' }}
+            </button>
               <hr/>
               <br/>
               <p v-if="message"
                  style="background: #6362e1; padding: 2px; border-radius: 5px;width: 100%; color: white; margin-bottom: 10px">
                 {{ message }}</p>
 
-              <button @click="status()" :class="container.status === 'running' ? 'badge-error' : 'badge-success'">
-                {{ container.status === 'running' ? 'Stop Service' : 'Start Service' }}
-              </button>
+              <container-overview v-if="container.stats" :data="container.stats"/>
+              <PieChart />
 
             </div>
           </div>
@@ -103,7 +103,7 @@
               class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-slate-800 shadow-lg rounded-sm border border-slate-200 dark:border-slate-700 mt-4">
             <div class="px-5 p-5">
               <strong>Last #10 Logs</strong>
-              <button style="margin-left:20px;" @click="this.logs()" class="btn btn-info">Load More Logs</button>
+              <button style="margin-left:15px;margin-bottom: 10px" @click="this.logs()" class="btn btn-info">Load More Logs</button>
               <hr/>
               <br/>
               <code>
@@ -142,11 +142,13 @@ import {ref} from 'vue'
 import Sidebar from '../partials/Sidebar.vue'
 import axios from "axios";
 import Swal from 'sweetalert2'
+import ContainerOverview from "../components/ContainerOverview.vue";
 
 
 export default {
   name: 'Dashboard',
   components: {
+    ContainerOverview,
     Sidebar,
   },
   data() {
@@ -157,7 +159,11 @@ export default {
         status: '',
         name: 'Teews Service Management',
         port: [],
-        logs: []
+        logs: [],
+        stats: {
+          cpu_stats: {},
+          memory_stats: {}
+        }
       },
       selectedServer: ''
     };
